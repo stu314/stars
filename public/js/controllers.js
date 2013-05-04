@@ -27,33 +27,11 @@ var App = Backbone.View.extend({
         window.requestAnimationFrame(Speys.App.render);
     },
     imgClicked:function(event){
-        console.log('Scumbag');
         var vector,ray,intersects,location;
         vector = new THREE.Vector3( ( event.clientX / window.innerWidth ) * 2 - 1, - ( event.clientY / window.innerHeight ) * 2 + 1, 0.5 );
         Speys.App.projector.unprojectVector(vector, Speys.App.camera);
-        console.log(vector);
         ray = new THREE.Ray(Speys.App.camera.position, vector.sub(Speys.App.camera.position).normalize());
-        console.log(ray);
         intersects = ray.intersectObjects( Speys.App.scene.__objects );
-        
-        if ( intersects.length > 0 ) {
-            location = intersects[ 0 ].point;
-            intersects[0].object.trigger('clicked');
-            $('.pop-up .text').html("Co-ordinates of this star\nX:="+location.x + "\nY:="+location.y + "\nZ:=" + location.z).show;
-            control.freeze = true;
-            $('.pop-up').show();
-            $('.fade').show();    
-        };
+        if (intersects[0]) intersects[0]['object'].trigger('intersected');          
     }
 });
-
-var Stu = new Backbone.Events();
-var Egg = new Backbone.Events();
-
-Egg.listenTo(Stu, 'change', alert('egg says i heard that'));
-Egg.listenTo(Stu, 'boom', alert('BOOOOM'));
-
-Stu.trigger('boom');
-
-Stu.name="mulligan";
-Stu.trigger('change');

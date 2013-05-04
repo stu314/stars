@@ -16,10 +16,10 @@ var Star = Backbone.Model.extend({
         this.set('mesh', _.extend(new THREE.Mesh(this.get('geometry'), this.get('material'))), Backbone.Events);
         this.get('mesh').position.set(this.get('x')*100, this.get('y')*100, this.get('z')*100);
         Speys.App.scene.add(this.get('mesh'));
-        this.listenTo(this.get('mesh'), 'clicked', this.clicked, this);
+        this.listenTo(this.get('mesh'), 'intersected', this.clicked, this);
     },
     clicked:function(){
-        console.log('i was clicked');
+        
     }
 });
 
