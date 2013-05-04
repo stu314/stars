@@ -20,7 +20,7 @@ var Universe = Backbone.Collection.extend({
                 $('#loader .inner').animate({
                     "width":"100%"
                 },1000, function(){
-                    $('#loader, #fullscreen-fade').hide();                            
+                    //$('#loader, #fullscreen-fade').hide();                            
                 });
             }
         })
