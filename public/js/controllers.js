@@ -14,7 +14,7 @@ var App = Backbone.View.extend({
         this.light = new THREE.AmbientLight(0xffffff);
         this.light.position.set(0,0,0);
         this.scene.add(this.light);
-        this.projecter = new THREE.Projector();
+        this.projector = new THREE.Projector();
         console.log('finished, nearly');
     },
     events:{
@@ -27,13 +27,16 @@ var App = Backbone.View.extend({
     },
     imgClicked:function(event){
         console.log('Scumbag');
-        var vector = new THREE.Vector3( ( event.clientX / window.innerWidth ) * 2 - 1, - ( event.clientY / window.innerHeight ) * 2 + 1, 0.5 );
-        Speys.App.projector.unprojectVector( this.vector, this.camera );
-        var ray = new THREE.Ray( camera.position, vector.subSelf( camera.position ).normalize() );
-        var intersects = ray.intersectObjects( objects );
+        var vector,ray,intersects,location;
+        vector = new THREE.Vector3( ( event.clientX / window.innerWidth ) * 2 - 1, - ( event.clientY / window.innerHeight ) * 2 + 1, 0.5 );
+        Speys.App.projector.unprojectVector(vector, Speys.App.camera);
+        console.log(vector);
+        ray = new THREE.Ray(Speys.App.camera.position, vector.sub(Speys.App.camera.position).normalize());
+        console.log(ray);
+        intersects = ray.intersectObjects( Speys.App.scene.__objects );
         
         if ( intersects.length > 0 ) {
-            var location = intersects[ 0 ].point;
+            location = intersects[ 0 ].point;
             $('.pop-up .text').html("Co-ordinates of this star\nX:="+location.x + "\nY:="+location.y + "\nZ:=" + location.z).show;
             control.freeze = true;
             $('.pop-up').show();
