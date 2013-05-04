@@ -9,14 +9,9 @@ module.exports = function (app) {
     
     app.get('/db', function (req, res) {
         console.log('get /db')
-        DB.getStars(function(out){
+        DB.getStars( function(out){
             res.send(out);
         });
     });
     
-    app.get('/test', function (req, res) {
-        console.log('get /test')
-        res.send('test worked');
-    });
-
 };
