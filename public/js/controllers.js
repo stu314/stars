@@ -4,7 +4,7 @@ var App = Backbone.View.extend({
         console.log(Speys);
         this.renderer = new THREE.WebGLRenderer({antialias: true, canvas:this.el});
         this.renderer.setSize(window.innerWidth, window.innerHeight);
-        this.scene = new THREE.Scene();
+        this.scene = _.extend(new THREE.Scene(), Backbone.Events);
         this.camera = new THREE.PerspectiveCamera(45,window.innerWidth / window.innerHeight,0.1, 1500);
         this.scene.add(this.camera);
         this.controls = new THREE.FirstPersonControls(this.camera);
@@ -15,6 +15,7 @@ var App = Backbone.View.extend({
         this.light.position.set(0,0,0);
         this.scene.add(this.light);
         this.projector = new THREE.Projector();
+        this.scene.listenTo('
         console.log('finished, nearly');
     },
     events:{
@@ -37,6 +38,7 @@ var App = Backbone.View.extend({
         
         if ( intersects.length > 0 ) {
             location = intersects[ 0 ].point;
+            intersects[0].object.trigger('clicked');
             $('.pop-up .text').html("Co-ordinates of this star\nX:="+location.x + "\nY:="+location.y + "\nZ:=" + location.z).show;
             control.freeze = true;
             $('.pop-up').show();
@@ -44,3 +46,14 @@ var App = Backbone.View.extend({
         };
     }
 });
+
+var Stu = new Backbone.Events();
+var Egg = new Backbone.Events();
+
+Egg.listenTo(Stu, 'change', alert('egg says i heard that'));
+Egg.listenTo(Stu, 'boom', alert('BOOOOM'));
+
+Stu.trigger('boom');
+
+Stu.name="mulligan";
+Stu.trigger('change');
