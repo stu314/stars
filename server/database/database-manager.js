@@ -18,8 +18,6 @@ var stars = db.collection('stars');
 
 exports.getStars = function(callback){
     stars.find(function(error, output){
-        console.log(output)
-        console.log(output.stars)
         output!== null ? callback(output[0].stars) : callback(null);
     });  
 };
