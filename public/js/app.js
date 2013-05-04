@@ -1,8 +1,10 @@
 $(function() {
     Speys.Universe.fetch({
         success:function(){
-            console.log(Speys.Universe);
-            new App();
+            console.log(Speys);
+            Speys.App = new App();
+            Speys.Universe.createMeshes();
+            console.log(Speys);
         }
     });
 });

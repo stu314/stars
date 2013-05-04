@@ -4,7 +4,7 @@ module.exports = function (app) {
     
     app.get('/', function(req, res){
         console.log('get /')
-        res.render('index', { title: 'WOOOO IT WORKED' } );
+        res.render('index', { title: 'Speys' } );
     });
     
     app.get('/db', function (req, res) {
