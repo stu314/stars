@@ -21,6 +21,7 @@ var Star = Backbone.Model.extend({
     },
     intersected:function(){
         console.log(this.get('iD'));
+        this.freeze = !this.freeze; break;
         
     }
 });
