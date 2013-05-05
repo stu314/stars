@@ -13,6 +13,7 @@ var dbName = 'stars';
 var db = MongoJS.connect(dbURI, collections);
 
 var stars = db.collection('stars');
+var content = db.collection('content');
 
 /*get campaign data*/
 
@@ -22,3 +23,10 @@ exports.getStars = function(callback){
     });  
 };
 
+exports.getContent = function(id, callback){
+    console.log(content.find());
+    content.find({iD:id}, function(error, output){
+        console.log(output);
+        output!== null ? callback(output) : callback(null);
+    });
+};

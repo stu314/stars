@@ -1,6 +1,6 @@
 var Universe = Backbone.Collection.extend({
     model:Star,
-    url:'/db',
+    url:'/db/stars',
     initialize:function(){
         console.log('Universe created');
         this.on('add', this.added, this);

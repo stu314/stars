@@ -18,14 +18,14 @@ var App = Backbone.View.extend({
         console.log('finished, nearly');
     },
     events:{
-        'click':'imgClicked'
+        'click':'intersectCheck'
     },  
     render:function() {
         Speys.App.controls.update(1000/60);
         Speys.App.renderer.render(Speys.App.scene, Speys.App.camera);
         window.requestAnimationFrame(Speys.App.render);
     },
-    imgClicked:function(event){
+    intersectCheck:function(event){
         var vector,ray,intersects,location;
         vector = new THREE.Vector3( ( event.clientX / window.innerWidth ) * 2 - 1, - ( event.clientY / window.innerHeight ) * 2 + 1, 0.5 );
         Speys.App.projector.unprojectVector(vector, Speys.App.camera);
