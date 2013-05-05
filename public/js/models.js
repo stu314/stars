@@ -28,6 +28,10 @@ var Star = Backbone.Model.extend({
                 Speys.Content = new ContentView({model:that})
             }
         });
+
+        console.log(this.get('iD'));
+        this.freeze = !this.freeze; break;
+        
     }
 });
 
