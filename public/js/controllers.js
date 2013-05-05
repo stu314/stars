@@ -1,4 +1,4 @@
-var App1 = Backbone.View.extend({
+var App = Backbone.View.extend({
     el:'#container',
     initialize:function() {
         console.log(Speys);
@@ -36,7 +36,7 @@ var App1 = Backbone.View.extend({
         intersects = ray.intersectObjects( Speys.App.scene.__objects );
         if (intersects[0]) intersects[0]['object'].trigger('intersected');          
     }
-});
+});/*
 var App = Backbone.View.extend({
     el:'#container',
     initialize:function() {
@@ -96,3 +96,4 @@ var App = Backbone.View.extend({
                         
      });
 
+*/

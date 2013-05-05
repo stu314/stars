@@ -3,7 +3,7 @@ $(function() {
         success:function(){
             Speys.App = new App();
             Speys.App.render();
-           // Speys.Universe.createMeshes();
+            Speys.Universe.createMeshes();
         }
     });
 });

@@ -13,7 +13,7 @@ var dbName = 'stars';
 var db = MongoJS.connect(dbURI, collections);
 
 var stars = db.collection('stars');
-var content = db.collection('content');
+var solarsystems = db.collection('solarsystems');
 
 /*get data*/
 
@@ -25,7 +25,7 @@ exports.getStars = function(callback){
 
 exports.getContent = function(id, callback){
     id = parseInt(id);
-    content.find({iD:id}, function(error, output){
+    solarsystems.find({iD:id}, function(error, output){
         output!== null ? callback(output[0].content) : callback(null);
     });
 };
