@@ -7,15 +7,15 @@ module.exports = function (app) {
         res.render('index', { title: 'Speys' } );
     });
     
-    app.get('/db/stars', function (req, res) {
-        console.log('get /db')
+    app.get('/stars', function (req, res) {
+        console.log('get /db/stars')
         DB.getStars( function(out){
             res.send(out);
         });
     });
     
-    app.get('/db/content', function (req, res) {
-        console.log('post /db')
+    app.get('/content/:id', function (req, res) {
+        console.log('get /db/content')
         console.log(req.params.id);
         DB.getContent(req.params.id, function(out){
             console.log(out);

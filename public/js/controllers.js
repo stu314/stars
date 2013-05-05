@@ -34,3 +34,15 @@ var App = Backbone.View.extend({
         if (intersects[0]) intersects[0]['object'].trigger('intersected');          
     }
 });
+
+var ContentView = Backbone.View.extend({
+    tagName:"div",
+    className:"content popup",
+    initialize:function(){
+        this.render();
+    },
+    render:function(){
+        $('body').append(this.el);
+        this.$el.html("<h1>"+this.model.get('title')+"</h1><p>"+this.model.get('body')+"</p>");
+    }
+});

@@ -2,9 +2,10 @@ var Speys = _.extend({}, Backbone.Events);
 
 var Star = Backbone.Model.extend({
     initialize:function(){
-        
     },
-    url:'/db/content',
+    url:function(){
+        return '/content/'+this.get('iD');
+    },
     defaults:{
         material: (new THREE.MeshLambertMaterial('0xffffff')),
         geometry: (new THREE.SphereGeometry(1,32,32))
@@ -20,8 +21,13 @@ var Star = Backbone.Model.extend({
         this.listenTo(this.get('mesh'), 'intersected', this.intersected, this);
     },
     intersected:function(){
-        console.log(this.get('iD'));
-        
+        var that = this;
+        this.fetch({
+            success:function(){
+                //Speys.Content.remove();
+                Speys.Content = new ContentView({model:that})
+            }
+        });
     }
 });
 
