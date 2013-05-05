@@ -15,7 +15,6 @@ var App = Backbone.View.extend({
         this.light.position.set(0,0,0);
         this.scene.add(this.light);
         this.projector = new THREE.Projector();
-        this.scene.listenTo('
         console.log('finished, nearly');
     },
     events:{
@@ -30,7 +29,7 @@ var App = Backbone.View.extend({
         var vector,ray,intersects,location;
         vector = new THREE.Vector3( ( event.clientX / window.innerWidth ) * 2 - 1, - ( event.clientY / window.innerHeight ) * 2 + 1, 0.5 );
         Speys.App.projector.unprojectVector(vector, Speys.App.camera);
-        ray = new THREE.Ray(Speys.App.camera.position, vector.sub(Speys.App.camera.position).normalize());
+        ray = new THREE.Raycaster(Speys.App.camera.position, vector.sub(Speys.App.camera.position).normalize(), 0, 500 );
         intersects = ray.intersectObjects( Speys.App.scene.__objects );
         if (intersects[0]) intersects[0]['object'].trigger('intersected');          
     }
