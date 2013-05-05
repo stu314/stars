@@ -37,7 +37,13 @@ var Star = Backbone.Model.extend({
 
 var Planet = Backbone.Model.extend({
     initialize:function() {
-                        
+        this.set('texture', THREE.ImageUtils.loadTexture(this.get('texture')));
+        this.set('material', new THREE.MeshBasicMaterial({map: this.get('texture')}));
+        this.set('geometry', new Three.SphereGeometry(this.get('size'), 256, 256));
+        this.set('mesh', new THREE.Mesh(this.get('geometry'), this.get('material')));
+        this.get('mesh').position.set(0,0,0);
+        Speys.App.scene.add(this.get('mesh'));
+        
     },
     rotate:function() {
             
@@ -49,4 +55,5 @@ var Planet = Backbone.Model.extend({
     
     }
 });
+
 
