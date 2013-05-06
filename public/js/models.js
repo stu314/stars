@@ -1,7 +1,17 @@
 var Speys = _.extend({}, Backbone.Events);
 
 var SolarSystem = Backbone.Model.extend({
-
+    initialize:function(){
+        var that = this;
+        Speys.Universe.removeMeshes();
+        this.fetch({success:function(){
+            that.set('planets', new Planets(that.get('planets')));
+            that.set('sun', new Star(that.get('sun')).createMesh());
+        }});
+    },
+    url:function(){
+        return '/solarsystems/'+this.get('iD');
+    }
 });
 
 var Star = Backbone.Model.extend({
@@ -51,7 +61,6 @@ var Planet = Backbone.Model.extend({
             
     },
     orbit:function() {
-        
         this.get('mesh').position.set((this.get('distance')*(Math.sin(this.get('rotationAngle')))), this.get('distance')*(Math.cos(this.get('rotationAngle'))));
         
     },
