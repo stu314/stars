@@ -47,7 +47,7 @@ var Star = Backbone.Model.extend({
 var Planet = Backbone.Model.extend({
     initialize:function() {
         console.log('new planet');
-        this.set('material', new THREE.MeshLambertMaterial('0xffffff'))
+        this.set('material', new THREE.MeshBasicMaterial( { color: this.get('color'), wireframe: true, transparent: true } ))
         this.set('geometry', new THREE.SphereGeometry(this.get('size'), 256, 256));
         this.set('mesh', _.extend(new THREE.Mesh(this.get('geometry'), this.get('material')), Backbone.Events));
         this.set('rotationAngle', 0);
