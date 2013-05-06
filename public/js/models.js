@@ -47,21 +47,32 @@ var Star = Backbone.Model.extend({
 
 var Planet = Backbone.Model.extend({
     initialize:function() {
+        _.bindAll(this);
         this.set('texture', THREE.ImageUtils.loadTexture(this.get('texture')));
         this.set('material', new THREE.MeshBasicMaterial({map: this.get('texture')}));
         this.set('geometry', new THREE.SphereGeometry(this.get('size'), 256, 256));
         this.set('mesh', new THREE.Mesh(this.get('geometry'), this.get('material')));
-        this.get('mesh').position.set(0,0,0);
+        this.get('mesh').position.set(70,0,0);
         this.set('rotationAngle', 0);
-        this.set('rotationAngleIncrement', (Math.Pi/(180*60))*this.get('orbit'));
+        this.set('rotationAngleIncrement', (Math.PI/(180*60))*this.get('orbit'));
+                console.log(this.get('orbit'));
+        console.log(this.get('rotationAngle'));
+        console.log(this.get('rotationAngleIncrement'));
         Speys.App.scene.add(this.get('mesh'));
+        this.orbit();
+        
         
     },
     rotate:function() {
             
     },
     orbit:function() {
-        this.get('mesh').position.set((this.get('distance')*(Math.sin(this.get('rotationAngle')))), this.get('distance')*(Math.cos(this.get('rotationAngle'))));
+        var that = this;
+        this.get('mesh').position.set((that.get('distance')*(Math.cos(that.get('rotationAngle')))), 0, that.get('distance')*(Math.sin(that.get('rotationAngle'))));
+        
+        this.set('rotationAngle', (this.get('rotationAngle')+this.get('rotationAngleIncrement')));
+        setTimeout(that.orbit,(1000/60));
+
         
     },
     intersected:function() {
