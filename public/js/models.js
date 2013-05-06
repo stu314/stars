@@ -59,10 +59,16 @@ var Planet = Backbone.Model.extend({
         console.log(this.get('rotationAngle'));
         console.log(this.get('rotationAngleIncrement'));
         Speys.App.scene.add(this.get('mesh'));
-        this.orbit();
+        
         
         
     },
+    update:function(){
+        this.rotate();
+        this.orbit();
+        
+    },
+    
     rotate:function() {
             
     },
@@ -71,7 +77,7 @@ var Planet = Backbone.Model.extend({
         this.get('mesh').position.set((that.get('distance')*(Math.cos(that.get('rotationAngle')))), 0, that.get('distance')*(Math.sin(that.get('rotationAngle'))));
         
         this.set('rotationAngle', (this.get('rotationAngle')+this.get('rotationAngleIncrement')));
-        setTimeout(that.orbit,(1000/60));
+       
 
         
     },
