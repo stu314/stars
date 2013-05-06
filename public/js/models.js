@@ -59,13 +59,18 @@ var Planet = Backbone.Model.extend({
         this.orbit();  
     },
     rotate:function() {
-            
+        var newRotX, that = this;
+        newRotX = (this.get('mesh').rotation.x)+(Math.PI/(180*60))*this.get('rotation');
+        this.get('mesh').rotation.set(newRotX, 0, 0);
+        
+
+        
     },
     orbit:function() {
         var newX, newZ, that = this;
         newX = this.get('distance')*(Math.cos(this.get('rotationAngle')));
         newZ = this.get('distance')*(Math.sin(this.get('rotationAngle')));
-        this.get('mesh').position.set(newX,0,newZ)
+        this.get('mesh').position.set(newX,0,newZ);
         this.set('rotationAngle', (this.get('rotationAngle')+this.get('rotationAngleIncrement')));        
     },
     intersected:function() {
