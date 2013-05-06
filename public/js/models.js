@@ -23,7 +23,7 @@ var Star = Backbone.Model.extend({
         return '/content/'+this.get('iD');
     },
     defaults:{
-        material: (new THREE.MeshLambertMaterial('0xffffff')),
+        material: (new THREE.MeshLambertMaterial({color:0xffffff, ambient:0xe43f23})),
         geometry: (new THREE.SphereGeometry(1,32,32))
     },
     createMesh: function(){
@@ -47,7 +47,7 @@ var Star = Backbone.Model.extend({
 var Planet = Backbone.Model.extend({
     initialize:function() {
         console.log('new planet');
-        this.set('material', new THREE.MeshLambertMaterial({color: this.get('color')}))
+        this.set('material', new THREE.MeshLambertMaterial({color: 0x3be69b, ambient: 0x3be69b}))
         this.set('geometry', new THREE.SphereGeometry(this.get('size'), 256, 256));
         this.set('mesh', _.extend(new THREE.Mesh(this.get('geometry'), this.get('material')), Backbone.Events));
         this.set('rotationAngle', 0);
