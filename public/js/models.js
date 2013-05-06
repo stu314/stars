@@ -16,6 +16,8 @@ var SolarSystem = Backbone.Model.extend({
 
 var Star = Backbone.Model.extend({
     initialize:function(){
+        if(this.get('size'))
+            this.set('geometry', new THREE.SphereGeometry(this.get('size'), 256, 256));
     },
     url:function(){
         return '/content/'+this.get('iD');
@@ -44,6 +46,7 @@ var Star = Backbone.Model.extend({
 
 var Planet = Backbone.Model.extend({
     initialize:function() {
+        console.log('new planet');
         this.set('material', new THREE.MeshLambertMaterial('0xffffff'))
         this.set('geometry', new THREE.SphereGeometry(this.get('size'), 256, 256));
         this.set('mesh', _.extend(new THREE.Mesh(this.get('geometry'), this.get('material')), Backbone.Events));
