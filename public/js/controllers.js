@@ -1,4 +1,4 @@
-var App1 = Backbone.View.extend({
+var App = Backbone.View.extend({
     el:'#container',
     initialize:function() {
         console.log(Speys);
@@ -16,6 +16,7 @@ var App1 = Backbone.View.extend({
         this.scene.add(this.light);
         this.projector = new THREE.Projector();
         console.log('finished, nearly');
+        
     },
     
    
@@ -24,6 +25,7 @@ var App1 = Backbone.View.extend({
         'click':'intersectCheck'
     },  
     render:function() {
+        Speys.App.updateScene();
         Speys.App.controls.update(1000/60);
         Speys.App.renderer.render(Speys.App.scene, Speys.App.camera);
         window.requestAnimationFrame(Speys.App.render);
@@ -35,8 +37,11 @@ var App1 = Backbone.View.extend({
         ray = new THREE.Raycaster(Speys.App.camera.position, vector.sub(Speys.App.camera.position).normalize(), 0, 500 );
         intersects = ray.intersectObjects( Speys.App.scene.__objects );
         if (intersects[0]) intersects[0]['object'].trigger('intersected');          
+    },
+    updateScene:function(){
+    
     }
-});
+});/*
 var App = Backbone.View.extend({
     el:'#container',
     initialize:function() {
@@ -96,4 +101,4 @@ var App = Backbone.View.extend({
                         
      });
 
-
+*/

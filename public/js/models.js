@@ -8,6 +8,7 @@ var SolarSystem = Backbone.Model.extend({
             that.set('planets', new Planets(that.get('planets')));
             that.set('sun', new Star(that.get('sun')).createMesh());
         }});
+        
     },
     url:function(){
         return '/solarsystems/'+this.get('iD');
@@ -27,35 +28,33 @@ var Star = Backbone.Model.extend({
     createMesh: function(){
         this.set('mesh', _.extend(new THREE.Mesh(this.get('geometry'), this.get('material')), Backbone.Events));
         this.get('mesh').position.set(this.get('x')*100, this.get('y')*100, this.get('z')*100);
-        Speys.App.scene.add(this.get('mesh'));
+        this.addMesh()
         this.listenTo(this.get('mesh'), 'intersected', this.intersected, this);
+    },
+    removeMesh:function() {
+        Speys.App.scene.remove(this.get('mesh'));
+    },
+    addMesh:function() {
+        Speys.App.scene.add(this.get('mesh'));
     },
     intersected:function(){
         var that = this;
-        this.fetch({
-            success:function(){
-                //Speys.Content.remove();
-                console.log(that);
-            }
-        });
+        new SolarSystem({iD:this.get('iD')});
 
-        console.log(this.get('iD'));
-        this.freeze = !this.freeze; break;
-        
     }
 });
 
 var Planet = Backbone.Model.extend({
     initialize:function() {
-        this.set('texture', THREE.ImageUtils.loadTexture(this.get('texture')));
-        this.set('material', new THREE.MeshBasicMaterial({map: this.get('texture')}));
         this.set('geometry', new THREE.SphereGeometry(this.get('size'), 256, 256));
-        this.set('mesh', new THREE.Mesh(this.get('geometry'), this.get('material')));
+        this.set('mesh', _.extend(new THREE.Mesh(this.get('geometry'), this.get('material')), Backbone.Events));
         this.get('mesh').position.set(0,0,0);
         this.set('rotationAngle', 0);
         this.set('rotationAngleIncrement', (Math.Pi/(180*60))*this.get('orbit'));
         Speys.App.scene.add(this.get('mesh'));
-        
+    },
+    defaults:{
+        material: (new THREE.MeshLambertMaterial('0xffffff'))
     },
     rotate:function() {
             
@@ -66,6 +65,9 @@ var Planet = Backbone.Model.extend({
     },
     intersected:function() {
     
+    },
+    update:function(){
+        console.log('planet updat');
     }
 });
 
