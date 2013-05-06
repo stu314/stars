@@ -8,6 +8,9 @@ var SolarSystem = Backbone.Model.extend({
             that.set('planets', new Planets(that.get('planets')));
             that.set('sun', new Star(that.get('sun')).createMesh());
         }});
+        Speys.App.camera.position.y = 200;
+        Speys.App.camera.position.z = 200;
+        Speys.App.camera.lookAt(new THREE.Vector3(0,0,0));
     },
     url:function(){
         return '/solarsystems/'+this.get('iD');
