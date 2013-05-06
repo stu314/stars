@@ -42,6 +42,8 @@ var Planet = Backbone.Model.extend({
         this.set('geometry', new Three.SphereGeometry(this.get('size'), 256, 256));
         this.set('mesh', new THREE.Mesh(this.get('geometry'), this.get('material')));
         this.get('mesh').position.set(0,0,0);
+        this.set('rotationAngle', 0);
+        this.set('rotationAngleIncrement', (Math.Pi/(180*60))*this.get('orbit'));
         Speys.App.scene.add(this.get('mesh'));
         
     },
@@ -49,6 +51,8 @@ var Planet = Backbone.Model.extend({
             
     },
     orbit:function() {
+        
+        this.get('mesh').position.set((this.get('distance')*(Math.sin(this.get('rotationAngle')))), this.get('distance')*(Math.cos(this.get('rotationAngle'))));
         
     },
     intersected:function() {
