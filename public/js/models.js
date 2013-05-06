@@ -27,8 +27,14 @@ var Star = Backbone.Model.extend({
     createMesh: function(){
         this.set('mesh', _.extend(new THREE.Mesh(this.get('geometry'), this.get('material')), Backbone.Events));
         this.get('mesh').position.set(this.get('x')*100, this.get('y')*100, this.get('z')*100);
-        Speys.App.scene.add(this.get('mesh'));
+        this.addMesh();
         this.listenTo(this.get('mesh'), 'intersected', this.intersected, this);
+    },
+    addMesh:function(){
+        Speys.App.scene.add(this.get('mesh'));
+    },
+    removeMesh:function(){
+        Speys.App.scene.remove(this.get('mesh'));
     },
     intersected:function(){
         var that = this;
