@@ -11,7 +11,7 @@ var App = Backbone.View.extend({
         this.controls.dragToLook = false;
         this.controls.lookSpeed = 0.001;
         this.controls.movementSpeed = 0.3;
-        this.light = new THREE.AmbientLight(0x404040);
+        this.light = new THREE.AmbientLight(0xffffff);
         this.light.position.set(0,0,0);
         this.scene.add(this.light);
         this.projector = new THREE.Projector();
