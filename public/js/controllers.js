@@ -46,11 +46,11 @@ var App = Backbone.View.extend({
         this.scene = _.extend(new THREE.Scene(), Backbone.Events);
         this.camera = new THREE.PerspectiveCamera(45,window.innerWidth / window.innerHeight,0.1, 1500);
 
-            this.texture = THREE.ImageUtils.loadTexture('/images/moon.png');
+            this.texture = THREE.ImageUtils.loadTexture('/images/moon.jpg');
             this.material = new THREE.MeshBasicMaterial({map: this.texture});
             console.log(this.texture);
-            this.geometry = (new THREE.SphereGeometry(100,32,32)); 
-            this.mesh = new THREE.Mesh(this.geometry, this.materia);
+            this.geometry = (new THREE.SphereGeometry(100,256,256)); 
+            this.mesh = new THREE.Mesh(this.geometry, this.material);
             this.mesh.position.set(0,0,0);
             console.log(this.mesh);
             this.scene.add(this.mesh);
@@ -67,7 +67,7 @@ var App = Backbone.View.extend({
         this.controls = new THREE.FirstPersonControls(this.camera);
         this.controls.dragToLook = false;
         this.controls.lookSpeed = 0.00001;
-        this.controls.movementSpeed = 0.003;
+        this.controls.movementSpeed = 0.1;
         this.light = new THREE.PointLight(0xe60000);
         this.light.position.set(2.5,0,2.5);
         this.scene.add(this.light);
