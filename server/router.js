@@ -22,4 +22,13 @@ module.exports = function (app) {
             res.send(out);
         });
     });
+    
+    app.get('/solarsystems/:id', function (req, res) {
+        console.log('get /db/content')
+        console.log(req.params.id);
+        DB.getSolarSystem(req.params.id, function(out){
+            console.log(out);
+            res.send(out);
+        });
+    });
 };

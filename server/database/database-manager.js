@@ -1,5 +1,5 @@
 var dbURI = 'mongodb://admin:adminpass@dharma.mongohq.com:10040/stars';
-var collections = ["stars","content"];
+var collections = ["stars","content","solarsystems"];
 var MongoJS = require('mongojs');
 var Server = require('mongodb').Server;
 var moment = require('moment');
@@ -14,6 +14,7 @@ var db = MongoJS.connect(dbURI, collections);
 
 var stars = db.collection('stars');
 var content = db.collection('content');
+var solarsystems = db.collection('solarsystems');
 
 /*get data*/
 
@@ -27,5 +28,13 @@ exports.getContent = function(id, callback){
     id = parseInt(id);
     content.find({iD:id}, function(error, output){
         output!== null ? callback(output[0].content) : callback(null);
+    });
+};
+
+exports.getSolarSystem = function(id, callback){
+    id = parseInt(id);
+    console.log(id);
+    solarsystems.find({iD:id}, function(error, output){
+        output!== null ? callback(output[0]) : callback(null);
     });
 };

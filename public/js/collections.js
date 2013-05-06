@@ -10,12 +10,23 @@ var Universe = Backbone.Collection.extend({
         console.log('added');
     },
     createMeshes:function() {
-        Speys.App.count = 0;
         _.each(this.models, function(model,i){
             model.createMesh();
         });
         Speys.App.render();
+    },
+    removeMeshes:function() {
+        _.each(this.models, function(model,i){
+            model.removeMesh();
+        });
+    },
+    addMeshes:function() {
+        _.each(this.models, function(model,i){
+            model.addMesh();
+        });
     }
 });
-
+var Planets = Backbone.Collection.extend({
+    model:Planet
+})
 Speys.Universe = new Universe();
