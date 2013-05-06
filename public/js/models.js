@@ -18,12 +18,13 @@ var Star = Backbone.Model.extend({
     initialize:function(){
         if(this.get('size'))
             this.set('geometry', new THREE.SphereGeometry(this.get('size'), 256, 256));
+        this.set('texture', THREE.ImageUtils.loadTexture('/images/moon.jpg'));
+        this.set('material',  new THREE.MeshBasicMaterial({map: this.get('texture') }));
     },
     url:function(){
         return '/content/'+this.get('iD');
     },
     defaults:{
-        material: (new THREE.MeshLambertMaterial({color:0xffffff, ambient:0xe43f23})),
         geometry: (new THREE.SphereGeometry(1,32,32))
     },
     createMesh: function(){
@@ -47,7 +48,8 @@ var Star = Backbone.Model.extend({
 var Planet = Backbone.Model.extend({
     initialize:function() {
         console.log('new planet');
-        this.set('material', new THREE.MeshLambertMaterial({color: 0x3be69b, ambient: 0x3be69b}))
+        this.set('texture', THREE.ImageUtils.loadTexture(this.get('texture')));
+        this.set('material', new THREE.MeshBasicMaterial({map: this.get('texture') }))
         this.set('geometry', new THREE.SphereGeometry(this.get('size'), 256, 256));
         this.set('mesh', _.extend(new THREE.Mesh(this.get('geometry'), this.get('material')), Backbone.Events));
         this.set('rotationAngle', 0);
@@ -59,9 +61,9 @@ var Planet = Backbone.Model.extend({
         this.orbit();  
     },
     rotate:function() {
-        var newRotX, that = this;
-        newRotX = (this.get('mesh').rotation.x)+(Math.PI/(180*60))*this.get('rotation');
-        this.get('mesh').rotation.set(newRotX, 0, 0);
+        var newRotY, that = this;
+        newRotY = (this.get('mesh').rotation.y)+(Math.PI/(180*60))*this.get('rotation');
+        this.get('mesh').rotation.set(newRotY, 0, 0);
         
 
         
