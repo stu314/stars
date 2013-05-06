@@ -27,6 +27,14 @@ var Universe = Backbone.Collection.extend({
     }
 });
 var Planets = Backbone.Collection.extend({
-    model:Planet
+    model:Planet,
+    initialize:function(){
+        var that = this;
+        Speys.App.updateScene = function() {
+            _.each(that.models, function(model){
+                model.update();
+            })
+        };
+    }
 })
 Speys.Universe = new Universe();
