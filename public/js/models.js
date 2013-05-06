@@ -32,16 +32,7 @@ var Star = Backbone.Model.extend({
     },
     intersected:function(){
         var that = this;
-        this.fetch({
-            success:function(){
-                //Speys.Content.remove();
-                console.log(that);
-            }
-        });
-
-        console.log(this.get('iD'));
-        this.freeze = !this.freeze; break;
-        
+        new SolarSystem({iD:that.get('iD')});
     }
 });
 
