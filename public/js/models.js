@@ -70,5 +70,5 @@ var Planet = Backbone.Model.extend({
         console.log('planet updat');
     }
 });
-
+/*cunt*/
 
