@@ -66,7 +66,7 @@ var Planet = Backbone.Model.extend({
     rotate:function() {
         var newRotY, that = this;
         newRotY = (this.get('mesh').rotation.y)+(Math.PI/(180*60))*this.get('rotation');
-        this.get('mesh').rotation.set(newRotY, 0, 0);
+        this.get('mesh').rotation.set(0, newRotY, 0);
         
 
         
