@@ -3,13 +3,13 @@ var Speys = _.extend({}, Backbone.Events);
 var SolarSystem = Backbone.Model.extend({
     initialize:function(){
         var that = this;
+        Speys.App.controls.freeze = true;
         Speys.Universe.removeMeshes();
         this.fetch({success:function(){
             that.set('planets', new Planets(that.get('planets')));
             that.set('sun', new Star(that.get('sun')).createMesh());
         }});
-        Speys.App.camera.position.y = 200;
-        Speys.App.camera.position.z = 200;
+        Speys.App.camera.position.set(-500,400,-600);
         Speys.App.camera.lookAt(new THREE.Vector3(0,0,0));
     },
     url:function(){
@@ -66,7 +66,7 @@ var Planet = Backbone.Model.extend({
     rotate:function() {
         var newRotY, that = this;
         newRotY = (this.get('mesh').rotation.y)+(Math.PI/(180*60))*this.get('rotation');
-        this.get('mesh').rotation.set(newRotY, 0, 0);
+        this.get('mesh').rotation.set(0, newRotY, 0);
         
 
         
@@ -82,5 +82,5 @@ var Planet = Backbone.Model.extend({
     
     }
 });
-/*cunt*/
+
 

@@ -7,10 +7,11 @@ var App = Backbone.View.extend({
         this.scene = _.extend(new THREE.Scene(), Backbone.Events);
         this.camera = new THREE.PerspectiveCamera(45,window.innerWidth / window.innerHeight,0.1, 1500);
         this.scene.add(this.camera);
-        this.controls = new THREE.FirstPersonControls(this.camera);
+        this.controls = new THREE.PointerLockControls(this.camera);
         this.controls.dragToLook = false;
         this.controls.lookSpeed = 0.001;
         this.controls.movementSpeed = 0.3;
+        this.scene.add(this.controls.getObject());
         this.light = new THREE.AmbientLight(0xffffff);
         this.light.position.set(0,0,0);
         this.scene.add(this.light);
