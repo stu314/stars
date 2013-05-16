@@ -9,8 +9,9 @@ var SolarSystem = Backbone.Model.extend({
             that.set('planets', new Planets(that.get('planets')));
             that.set('sun', new Star(that.get('sun')).createMesh());
         }});
-        Speys.App.camera.position.set(-500,400,-600);
+        Speys.App.camera.position.set(-500,400,-8600);
         Speys.App.camera.lookAt(new THREE.Vector3(0,0,0));
+        Speys.App.controls.freeze = false;
     },
     url:function(){
         return '/solarsystems/'+this.get('iD');
@@ -55,6 +56,7 @@ var Planet = Backbone.Model.extend({
         this.set('material', new THREE.MeshBasicMaterial({map: this.get('texture') }))
         this.set('geometry', new THREE.SphereGeometry(this.get('size'), 256, 256));
         this.set('mesh', _.extend(new THREE.Mesh(this.get('geometry'), this.get('material')), Backbone.Events));
+        this.listenTo(this.get('mesh'), 'intersected', this.intersected, this);
         this.set('rotationAngle', 0);
         this.set('rotationAngleIncrement', (Math.PI/(180*60))*this.get('orbit'));
         Speys.App.scene.add(this.get('mesh'));   
@@ -76,7 +78,7 @@ var Planet = Backbone.Model.extend({
         this.set('rotationAngle', (this.get('rotationAngle')+this.get('rotationAngleIncrement')));        
     },
     intersected:function() {
-    
+        alert('planet intersect');
     }
 });
 
