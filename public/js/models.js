@@ -8,6 +8,7 @@ var SolarSystem = Backbone.Model.extend({
         this.fetch({success:function(){
             that.set('planets', new Planets(that.get('planets')));
             that.set('sun', new Star(that.get('sun')).createMesh());
+            that.get('sun').stopListening();
         }});
         Speys.App.camera.position.set(-500,400,-8600);
         Speys.App.camera.lookAt(new THREE.Vector3(0,0,0));
@@ -81,5 +82,3 @@ var Planet = Backbone.Model.extend({
         alert('planet intersect');
     }
 });
-
-
