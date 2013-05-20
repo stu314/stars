@@ -1,4 +1,3 @@
-//comments
 /**
  * Module dependencies.
  */
